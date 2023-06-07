@@ -6,16 +6,22 @@ using UnityEngine.InputSystem;
 
 public class GameInput : MonoBehaviour
 {
-    // Start is called before the first frame update
+    public static GameInput Instance{get; private set;}
     public event EventHandler OnPauseAction;
 
     private PlayerInputActions playerInputActions;
     void Awake()
     {
+        Instance = this;
         playerInputActions = new PlayerInputActions();
         playerInputActions.Player.Enable();
 
         playerInputActions.Player.Pause.performed += Pause_performed;
+    }
+
+    private void OnDestroy(){
+        playerInputActions.Player.Pause.performed -= Pause_performed;
+        playerInputActions.Dispose();
     }
 
     private void Pause_performed(InputAction.CallbackContext context)

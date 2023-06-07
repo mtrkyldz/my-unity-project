@@ -19,7 +19,7 @@ public class Player : MyComponent
     void Update()
     {
         //get directional input
-        inputVector = app.gameInput.GetMovementVectorNormalized();
+        inputVector = GameInput.Instance.GetMovementVectorNormalized();
         direction = new Vector3(inputVector.x, 0f, inputVector.y);
         transform.Translate(direction*speed*Time.deltaTime,Space.World);
 
